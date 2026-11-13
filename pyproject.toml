@@ -1,0 +1,10 @@
+[project]
+name = "simple-lang-chain"
+version = "0.1.0"
+description = "Small LangChain project to learn the primitives"
+requires-python = ">=3.10"
+dependencies = [
+    "langchain>=1.0",
+    "langchain-anthropic",
+    "python-dotenv",
+]
