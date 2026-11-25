@@ -4,12 +4,15 @@
 #   question -> embed -> nearest docs -> prompt with those docs -> model answers from them
 # Embeddings come from Voyage AI (Anthropic's recommended partner; Anthropic has no embedding model).
 # Needs VOYAGE_API_KEY in .env.
+from langchain_core.globals import set_debug
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.vectorstores import InMemoryVectorStore
 from langchain_voyageai import VoyageAIEmbeddings
 
 from llm import get_model
+
+set_debug(False) 
 
 # A tiny fake knowledge base. Real life: split your PDFs/pages into chunks first.
 docs = [
@@ -25,6 +28,7 @@ store.add_texts(docs)  ## embeds all docs once
 
 question = "How long do I have to send something back?"
 hits = store.similarity_search(question, k=2)  ## the 2 docs whose vectors are closest to the question's vector
+print(hits)
 context = "\n".join(h.page_content for h in hits)
 
 # The model answers only from the retrieved context, so it can't invent a policy.

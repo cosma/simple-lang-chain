@@ -1,10 +1,13 @@
 # Primitive 11: memory (short-term, per conversation).
 # An LLM forgets everything between calls. A checkpointer saves the message history per thread_id,
 # so a second invoke on the same thread sees the first one.
+from langchain_core.globals import set_debug
 from langchain.agents import create_agent
 from langgraph.checkpoint.memory import InMemorySaver  ## keeps history in RAM; use a Postgres saver in production
 
 from llm import get_model
+
+set_debug(False)
 
 agent = create_agent(
     model=get_model(),
