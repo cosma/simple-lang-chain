@@ -8,6 +8,7 @@ dependencies = [
     "langchain>=1.0",
     "langchain-anthropic",
     "langchain-voyageai>=0.4.1",
+    "pygraphviz>=2.0.4",
     "python-dotenv",
     "pytz>=2026.6",
 ]

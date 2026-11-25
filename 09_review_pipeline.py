@@ -13,14 +13,15 @@
 from typing import Literal
 
 from langchain_core.globals import set_debug
-from langchain_core.output_parsers import StrOutputParser, JsonOutputParser
+from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnableBranch, RunnableLambda, RunnableParallel, RunnablePassthrough
 from pydantic import BaseModel, Field
 
 from llm import get_model
 
-set_debug(True)  # prints input/output of every runnable: prompts, model replies, parsers, branch
+## DEBUG
+set_debug(False)  # prints input/output of every runnable: prompts, model replies, parsers, branch
 
 
 class Review(BaseModel):  ## same schema as lesson 07 (files starting with a digit can't be imported)
@@ -107,6 +108,10 @@ replies = chain.batch(reviews)  ## runs all three reviews concurrently, returns 
 for r, reply in zip(reviews, replies):
     print(f"REVIEW: {r['review'].strip()}\nREPLY:  {reply}\n")
 
+
+## draw diagrams part
+
+
 def draw_graph(path="chain.mmd"):  ## writes Mermaid text; paste into mermaid.live or a GitHub .md to view
     with open(path, "w") as f:
         f.write(chain.get_graph().draw_mermaid())
@@ -116,4 +121,4 @@ draw_graph()
 
 chain.get_graph().print_ascii()
 
-chain.get_graph().draw_mermaid_png()
+# chain.get_graph().draw_png("chain.png")
