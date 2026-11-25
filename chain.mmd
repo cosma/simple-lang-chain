@@ -1,0 +1,48 @@
+---
+config:
+  flowchart:
+    curve: linear
+---
+graph TD;
+	LambdaInput([LambdaInput]):::first
+	Lambda_1(Lambda)
+	Parallel\3canalysis\3eInput(Parallel<analysis>Input)
+	Parallel\3canalysis\3eOutput(Parallel<analysis>Output)
+	ChatPromptTemplate_1(ChatPromptTemplate)
+	ChatAnthropic_1(ChatAnthropic)
+	PydanticToolsParser(PydanticToolsParser)
+	Passthrough(Passthrough)
+	Parallel\3creview\2canalysis\2ctopic\2csummary\3eInput(Parallel<review,analysis,topic,summary>Input)
+	Parallel\3creview\2canalysis\2ctopic\2csummary\3eOutput(Parallel<review,analysis,topic,summary>Output)
+	Lambda_2(Lambda)
+	Lambda_3(Lambda)
+	Lambda_4(Lambda)
+	ChatPromptTemplate_2(ChatPromptTemplate)
+	ChatAnthropic_2(ChatAnthropic)
+	StrOutputParser(StrOutputParser)
+	Branch(Branch)
+	BranchOutput([BranchOutput]):::last
+	LambdaInput --> Lambda_1;
+	ChatPromptTemplate_1 --> ChatAnthropic_1;
+	ChatAnthropic_1 --> PydanticToolsParser;
+	Parallel\3canalysis\3eInput --> ChatPromptTemplate_1;
+	PydanticToolsParser --> Parallel\3canalysis\3eOutput;
+	Parallel\3canalysis\3eInput --> Passthrough;
+	Passthrough --> Parallel\3canalysis\3eOutput;
+	Lambda_1 --> Parallel\3canalysis\3eInput;
+	Parallel\3creview\2canalysis\2ctopic\2csummary\3eInput --> Lambda_2;
+	Lambda_2 --> Parallel\3creview\2canalysis\2ctopic\2csummary\3eOutput;
+	Parallel\3creview\2canalysis\2ctopic\2csummary\3eInput --> Lambda_3;
+	Lambda_3 --> Parallel\3creview\2canalysis\2ctopic\2csummary\3eOutput;
+	Parallel\3creview\2canalysis\2ctopic\2csummary\3eInput --> Lambda_4;
+	Lambda_4 --> Parallel\3creview\2canalysis\2ctopic\2csummary\3eOutput;
+	ChatPromptTemplate_2 --> ChatAnthropic_2;
+	ChatAnthropic_2 --> StrOutputParser;
+	Parallel\3creview\2canalysis\2ctopic\2csummary\3eInput --> ChatPromptTemplate_2;
+	StrOutputParser --> Parallel\3creview\2canalysis\2ctopic\2csummary\3eOutput;
+	Parallel\3canalysis\3eOutput --> Parallel\3creview\2canalysis\2ctopic\2csummary\3eInput;
+	Branch --> BranchOutput;
+	Parallel\3creview\2canalysis\2ctopic\2csummary\3eOutput --> Branch;
+	classDef default fill:#f2f0ff,line-height:1.2
+	classDef first fill-opacity:0
+	classDef last fill:#bfb6fc
